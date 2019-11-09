@@ -1,0 +1,82 @@
+=========================================
+2019-11-09: ETRACS 2.5.5 PATCH ETRACS    
+=========================================
+
+-----------------------------------------
+ ABOUT THE PATCH 
+-----------------------------------------
+* Update ETRACS client and services
+
+-----------------------------------------
+ SERVER UPDATE: 
+-----------------------------------------
+01. Restore the following database: 
+
+    * {PATCH_DIR}/res/market_db.sql
+
+
+02. Copy folder "{PATCH_DIR}/workspace" to {ETRACS_SERVER} folder. 
+    Merge and overwrite existing files and folders. 
+
+03. Go to "{ETRACS_SERVER}/workspace/web/resources/downloads/modules" folder 
+
+    03.01  Edit the file "updates.xml"
+    03.02  Increment the version of the following jar files: 
+
+           * core/osiris2-client-themes.jar
+           * core/osiris2-client-ui.jar
+           * core/osiris2-draw.jar
+           * core/osiris2-framework.jar
+           * core/osiris2-report.jar
+           * core/rameses-client-notification-socketio.jar
+           * core/rameses-client-ui.jar
+           * core/rameses-client-ui-bio.jar
+           * core/rameses-client-ui-jfx.jar
+           * core/rameses-common2.jar
+           * core/rameses-custom-impl.jar
+           * core/rameses-file-mgmt.jar
+           * core/rameses-jdbc16.jar
+           * core/rameses-seti.jar
+
+           * shared/client-system.jar
+           * shared/client-ui-extended.jar
+           * shared/rameses-client-menu.jar
+           * shared/rameses-client-report.jar
+           * shared/rameses-enterprise.jar
+           * shared/rameses-enterprise-admin.jar
+           * shared/rameses-enterprise-entity.jar
+           * shared/rameses-enterprise-financial.jar
+           * shared/rameses-rules-mgmt.jar
+           * shared/rameses-workflow-mgmt.jar
+
+           * rameses-client-notification2.jar
+           * rameses-etracs-main.jar
+           * rameses-gov-depositslip.jar
+           * rameses-gov-epayment.jar
+           * rameses-gov-epayment-report.jar
+           * rameses-gov-etracs-entity.jar
+           * rameses-treasury-common.jar
+
+
+    03.03  Register the following jar file: 
+
+    <module file="plugins/rameses-gov-etracs-market.jar" version="2.55"/>
+
+
+    03.04  Register the following "env" settings:  
+
+market.app.host=<MARKET_SERVER_IP>:8073
+market.app.context=enterprise
+
+entity.app.host=<ETRACS_SERVER_IP>:8070
+entity.app.context=etracs25
+
+
+    03.05  Save and close editor
+
+
+04. Restart ETRACS Server
+
+05. Close all ETRACS Client and open a new one to download client updates 
+
+06. Monitoring on the new updates...
