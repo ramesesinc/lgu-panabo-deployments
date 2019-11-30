@@ -1,0 +1,27 @@
+import com.rameses.common.*
+import com.rameses.annotations.*
+import com.rameses.services.extended.*
+
+public class CheckIssuanceReportService
+{
+	
+	@DataContext(value='dv_checkissuance', adapter="cashiering")
+	def em 
+	
+	/*
+	@ActiveDB(value='dv_checkissuance', em="cashiering")
+	def em; */
+
+	@ProxyMethod
+	public def buildReport(params) {
+		def checkissuance = em.select('*')
+							.orderBy('startdate')
+							.list()
+		//if (!params.checkno)
+		//params.checkno = ''
+		//params.searchtext = '%'
+		//return em.getList(params)
+		def list = em.getList(params)
+		return list
+	}
+}

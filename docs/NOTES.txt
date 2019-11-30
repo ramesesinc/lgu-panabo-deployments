@@ -1,0 +1,11 @@
+[vm1: db-server]
+IP  : 192.168.5.190
+Port: 3308
+User: root
+Pass: p@55word
+
+
+[vm3: gdx-server]
+IP   : 192.168.5.195
+User : cadoit
+Pass : p@55w0rd

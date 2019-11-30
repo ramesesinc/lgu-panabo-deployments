@@ -1,0 +1,29 @@
+import com.rameses.common.*
+import com.rameses.annotations.*
+import com.rameses.services.extended.*
+
+public class CheckIssuanceInterceptor
+{
+	@Env 
+	def env 
+
+    @Service('LogService')
+    def logSvc
+
+	@DataContext(value="testlog", adapter="cashiering")
+	def em 
+
+	@After(pattern="PersistenceService.(create|update)", eval="args[0]._schemaname=='checkissuance'")
+	public void logActions(evt){
+		def entity = evt.result 
+        logSvc.logA( evt.methodName, 'checkissuance', entity.objid, entity._remarks_)
+	}
+
+	@After(pattern="CheckIssuanceService.(approve|postCancel)")
+	public void logCheckIssuanceActions(evt){
+		def entity = evt.result 
+        logSvc.logA( evt.methodName, 'checkissuance', entity.objid, entity._remarks_)
+	}
+
+}
+

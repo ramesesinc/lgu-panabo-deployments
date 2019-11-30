@@ -1,0 +1,27 @@
+<schema adapter="cashiering">
+	<element tablename="checkissuance">
+		<field name="objid" primary="true" />
+		<field name="state" required="true" caption="State" searcheable="true" indexed="true"/>
+		<field name="bank_code" required="true" caption="Bank Code"  searcheable="true" indexed="true"/>
+		<field name="bank_name" required="true" caption="Bank"  searcheable="true" indexed="true"/>		
+		<field name="checkno" required="true" caption="Check No." searcheable="true" indexed="true"/>
+		<field name="checkdate" required="true" type="date" caption="Check Date"/>
+		<field name="bank_objid" required="true" caption="BankID"/>
+		<field name="respo" caption="Respo. Center"/>
+		<field name="account_no" caption="Account No."/>
+		<field name="amount" required="true" type="decimal" caption="Amount"/>
+		<field name="dvno" required="true" caption="DV No."  searcheable="true" indexed="true"/>
+		<field name="dvdate" required="true" type="date" caption="DV Date"/>
+		<field name="fund_objid" required="true" caption="Fund" />
+		<field name="fund_code" required="true" caption="Fund" />
+		<field name="fund_title" required="true" caption="Fund"  searcheable="true" indexed="true"/>
+		<field name="payee_objid" required="true"/>
+		<field name="payee_name" required="true" caption="Payee"  searcheable="true" indexed="true"/>		
+		<field name="particulars" required="true" caption="Particulars" />
+		<field name="createdby_objid" />
+		<field name="createdby_name" />
+		<field name="dtcreated" required="true" />
+	</element>
+</schema>
+
+

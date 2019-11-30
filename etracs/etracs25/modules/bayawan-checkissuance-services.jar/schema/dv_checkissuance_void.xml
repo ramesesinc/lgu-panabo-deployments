@@ -1,0 +1,12 @@
+<schema adapter="cashiering">
+	<element tablename="checkissuance_void">
+		<field name="objid" primary="true" />
+		<field name="dtvoided" required="true" type="date"/>
+		<field name="reason" required="true" />
+		<field name="createdby_objid" />
+		<field name="createdby_name" />
+		<field name="dtcreated" required="true" type="timestamp" />
+	</element>
+</schema>
+
+

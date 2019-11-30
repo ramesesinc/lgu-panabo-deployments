@@ -1,0 +1,15 @@
+<schema adapter="request">
+	<element tablename="requestlog">
+		<field name="objid"  primary="true" prefix="L"/>
+		<field name="refid" required="true" />
+		<field name="ref" required="true" />
+		<field name="userid" required="true" />
+		<field name="username" required="true" />
+		<field name="txndate" required="true" type="timestamp" />
+		<field name="action" required="true" />
+		<field name="subject" />
+		<field name="description" />
+		<field name="actionTaken" />
+		<field name="status" />
+	</element>
+</schema>

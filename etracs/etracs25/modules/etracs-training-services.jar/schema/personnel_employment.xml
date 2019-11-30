@@ -1,0 +1,10 @@
+<schema adapter="training">
+	<element tablename="personnel_employment">
+		<field name="objid" primary="true" visible="false" />
+		<field name="parent_objid" required="true" />
+		<field name="status" caption="Status" required="true" />
+		<field name="startyear" caption="Start Year" required="true" />
+		<field name="endyear" caption="End Year" />
+		<field name="position" caption="Position" required="true"/>
+	</element>
+</schema>

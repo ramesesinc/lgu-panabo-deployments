@@ -1,0 +1,7 @@
+<schema adapter="request">
+	<element tablename="type">
+		<field name="objid"  primary="true" prefix="T"/>
+		<field name="name" caption="Code" required="true" />
+		<field name="description" caption="Name" required="true" />
+	</element>
+</schema>

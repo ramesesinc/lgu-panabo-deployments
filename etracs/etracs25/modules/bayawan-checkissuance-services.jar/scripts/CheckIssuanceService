@@ -1,0 +1,96 @@
+import com.rameses.common.*
+import com.rameses.annotations.*
+import com.rameses.services.extended.*
+
+class CheckIssuanceService
+{
+	@Env 
+	def env 
+
+/*
+	@DataContext(value='dv_checkissuance', adapter="cashiering")
+	def em 
+*/
+	@ActiveDB(value='dv_checkissuance', em="cashiering")
+	def em
+
+	@DataContext(value='dv_checkissuance_void', adapter="cashiering")
+	def em_void 
+
+	@DataContext(value='bank')
+	def em_bankname
+
+	@DataContext(value='fund')
+	def em_fund
+
+	@Service('DateService')
+	def dtSvc 
+
+
+	@ProxyMethod
+	public def getList(params){
+		if(params.searchtext == null)
+		params.searchtext = ''
+		params.searchtext += '%'
+		if(params.state == null)
+		params.state = ''
+		params.state += '%'
+		if(params.bankid ==null)
+		params.bankid = ''
+		params.bankid += '%'
+		if(params.fundcode == null)
+		params.fundcode = '%'
+
+		def list = em.getList(params)
+		return list
+		/*
+		return em.where('state LIKE :state AND payee_name LIKE :searchtext', params)
+				.orderBy('payee_name,checkno')
+				.list()
+		*/
+	}
+
+
+	@ProxyMethod
+	public def getBankname(entity){
+			def list = em_bankname.list()
+		return list
+	}
+
+	@ProxyMethod
+	public def getFunds(entity){
+			def list = em_fund.list()
+		return list
+	}	
+
+	@ProxyMethod
+	public def approve(entity){
+		def old = em.read(entity)         
+		if (!old) 
+			throw new Exception('Record does not exist.')
+		if (old.state == 'APPROVED') 
+			throw new Exception('Record has already been approved.')
+
+		entity.state = 'APPROVED'
+		return em.update(entity)
+	}
+
+
+	@ProxyMethod
+	public def postCancel(entity){
+		def old = em.read(entity)
+		if (!old) 
+			throw new Exception('Record does not exist.')
+		if (old.state == 'CANCELLED') 
+			throw new Exception('Record has already been cancelled.')
+
+
+		entity.voidinfo.objid = entity.objid
+		entity.voidinfo.dtvoided = dtSvc.serverDate 
+		entity.voidinfo.createdby = [objid:env.USERID, name:env.FULLNAME]
+		entity.voidinfo.dtcreated = dtSvc.serverDate
+		em_void.create(entity.voidinfo)
+		entity.state = 'CANCELLED'
+		return em.update(entity)
+	}
+}

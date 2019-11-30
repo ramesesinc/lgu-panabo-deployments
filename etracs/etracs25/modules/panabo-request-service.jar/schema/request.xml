@@ -1,0 +1,26 @@
+<schema>
+	<element tablename="request">
+		<field name="objid" primary="true" prefix="R"/>
+		<field name="type_objid" required="true"/>
+		<field name="office_objid"/>
+		<field name="subject" caption="Subject" searchable="true" indexed="true" required="true"/>
+		<field name="description" caption="Description" searchable="true" indexed="true"/>
+		<field name="actionTaken" caption="Action Taken" searchable="true" indexed="true" required="true"/>
+		<field name="status" caption="Status" searcheable="true" indexed="true" required="true"/>
+		<field name="createdBy_objid" caption="Creator ID" indexed="true" required="true"/>
+		<field name="createdBy_name" caption="Creator" indexed="true" required="true"/>
+		<field name="dtcreated" caption="Date Created" searchable="true" indexed="true" required="true"/>
+		<complex name="type" ref="type" jointype="many-to-one" required="true">
+			<key field="type_objid" target="objid" />
+		</complex>
+		<complex name="office" ref="office" jointype="many-to-one">
+			<key field="office_objid" target="objid" />
+		</complex>
+		<complex name="attachments" ref="request_attachments" jointype="one-to-many" required="false">
+			<key field="objid" target="parent_objid" />
+		</complex>
+		<complex name="logs" ref="requestlog" jointype="one-to-many" required="false">
+			<key field="objid" target="refid" />
+		</complex>
+	</element>
+</schema>

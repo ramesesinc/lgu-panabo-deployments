@@ -1,0 +1,9 @@
+<schema adapter="request">
+	<element tablename="request_attachments">
+		<field name="objid" primary="true"  prefix="A"/>
+		<field name="parent_objid" required="true" />
+		<field name="name" caption="Name" required="true" />
+		<field name="description" caption="Description" required="true" />
+		<field name="image"/>
+	</element>
+</schema>

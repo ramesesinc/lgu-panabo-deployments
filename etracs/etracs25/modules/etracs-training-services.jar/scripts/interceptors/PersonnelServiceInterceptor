@@ -1,0 +1,30 @@
+import com.rameses.common.*
+import com.rameses.annotations.*
+import com.rameses.services.extended.*
+
+class PersonnelServiceInterceptor
+{
+	@Env
+	def env
+
+	@Service('DateService')
+	def dtSvc
+
+	@DataContext(value="testlog", adapter="training")
+	def em
+
+	@After(pattern="PersonnelService.(create|update)") //recommended->Panabo.PersonnelService.(create|update)
+	public void logActions(evt){
+		def entity = evt.result
+		def log = [:]
+		//log.objid = 'log' + new java.rmi.server.UID()
+		log.refid = entity.objid
+		log.ref = 'personnel'
+		log.userid = env.USERID
+		log.username = env.FULLNAME
+		log.txndate = dtSvc.serverDate
+		log.action = evt.methodName
+		log.remarks = entity._remarks
+		em.create(log)
+	}
+}

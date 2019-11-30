@@ -1,0 +1,92 @@
+import com.rameses.common.*
+import com.rameses.annotations.*
+import com.rameses.services.extended.*
+
+class PersonnelReportService
+{
+	@ActiveDB(value='personnel_report', em="training") //use this if wala sa schema
+	def em
+
+	@DataContext(value="personnel_training", adapter="training")
+	def em_training
+
+	@DataContext(value="personnel_employment", adapter="training")
+	def em_employment
+
+	@ProxyMethod
+	public def buildDataSheetReport(params){
+		if (!params.lastname)
+			params.lastname = ''
+		params.lastname += '%'
+		def list = em.getList(params)
+
+		//load trainings
+		list.each{personnel ->
+			personnel.trainings=getTrainings(personnel)
+			personnel.employments=getEmployments(personnel)
+		}
+		return list
+	}
+
+	def getTrainings(personnel){
+		def trainings = em_training.select('type,title,startdate,enddate')
+									.find([parent_objid:personnel.objid])
+									.orderBy('startdate')
+									.list() 
+		//def rowcount = 5
+		//if (trainings.size() < rowcount){
+		//	def start =(trainings.size() == 0 ? 1 : trainings.size)
+		//	start.upto(rowcount){
+		//		trainings << [:]	
+		//	}
+		//}
+		//return trainings
+
+		addRow(trainings)
+	}
+
+	def getEmployments(personnel){
+		def employments = em_employment.select('status,position,startyear,endyear')
+									.find([parent_objid:personnel.objid])
+									.orderBy('status')
+									.list()
+		//def rowcount = 5
+		//if (employments.size() < 6){
+		//	employments.size().upto(5){
+		//		employments << [:]
+		//	}
+		//}
+		//return employments
+
+		addRow(employments)
+	}
+
+
+	def addRow(table){
+		def rowcount = 5
+		if (table.size() < rowcount){
+			def start =table.size() + 1
+			start.upto(rowcount){
+				table << [:]	
+			}
+		}
+		return table
+	}
+
+	@ProxyMethod
+	public def buildReport(params){
+		//allow lastname search only using searchtext
+		if (!params.lastname)
+		params.lastname = ''
+		params.lastname += '%'
+		def list = em.getList(params)
+
+		//compute tax and deduction
+		list.each{personnel ->
+			personnel.tax = personnel.salary * 0.20
+			personnel.deduction = personnel.salary * 0.01
+			personnel.netsalary = personnel.salary - personnel.tax - personnel.deduction
+		}
+		return list
+	}
+}

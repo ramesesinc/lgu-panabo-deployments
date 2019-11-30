@@ -1,0 +1,32 @@
+import com.rameses.common.*
+import com.rameses.annotations.*
+import com.rameses.services.extended.*
+
+class RequestServiceInterceptor
+{
+	@Env
+	def env
+
+	@Service('DateService')
+	def dtSvc
+
+	@DataContext(value="requestlog", adapter="request")
+	def em
+
+	@After(pattern="RequestService.(create|update)") //recommended->Panabo.PersonnelService.(create|update)
+	public void logActions(evt){
+		def request = evt.result
+		def log = [:]
+		log.refid = request.objid
+		log.ref = 'Request'
+		log.userid = env.USERID
+		log.username = env.FULLNAME
+		log.txndate = dtSvc.serverDate
+		log.action = evt.methodName
+		log.subject = request.subject
+		log.description = request.description
+		log.actionTaken = request.actionTaken
+		log.status = request.status
+		em.create(log)
+	}
+}
