@@ -30,7 +30,7 @@ services:
       TZ: "Asia/Manila"
 
     ports:
-      - "8000:80"
+      - "81:80"
 
     volumes:
       - ./download/conf.d:/etc/nginx/conf.d
