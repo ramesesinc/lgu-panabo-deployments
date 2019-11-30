@@ -16,7 +16,7 @@ Portainer-URL :
 - https://10.10.10.201:9000
 
 Portainer-User: admin
-Portainer-Pass: p@55word
+Portainer-Pass: p@55w0rd
 
 
 Webmin-URL : 
@@ -24,4 +24,4 @@ Webmin-URL :
 - https://10.10.10.201:10000
 
 Webmin-User: cadoit
-Webmin-Pass: p@55word
+Webmin-Pass: p@55w0rd
