@@ -1,0 +1,5 @@
+dialect=mysql
+driverClass=com.mysql.jdbc.Driver
+url=jdbc:mysql://${marketdb_host}/${marketdb_name}
+user=${marketdb_user}
+pwd=${marketdb_pass}

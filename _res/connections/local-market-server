@@ -1,0 +1,5 @@
+provider=script
+app.host=${local_market_host}:8074
+app.cluster=osiris3
+app.context=enterprise
+readTimeout=60000
