@@ -1,7 +1,0 @@
-<schema adapter="training">
-	<element tablename="nationality">
-		<field name="objid" primary="true" prefix="NA"/>
-		<field name="code" caption="Code" searchable="true" indexed="true" required="true"/>
-		<field name="name" caption="Nationality" searchable="true" indexed="true" required="true"/>
-	</element>
-</schema>
