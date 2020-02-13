@@ -14,10 +14,6 @@ class PanaboBusinessPermitInterceptor {
 	@After( pattern="BusinessPermitService.getReport" ) 
 	public void afterPermitReport( evt ) {
 		def result = evt.result; 
-		println '** result'
-		result.each{
-			println '>> '+ it; 
-		}
 
 		def params = [ applicationid: result.applicationid ]; 		
 		if ( result.lobs ) {
@@ -68,18 +64,7 @@ class PanaboBusinessPermitInterceptor {
 			result.lastpaidqtr = ( maxqtr ? maxqtr.qtr : null ); 
 		} 
 		
-		def billing = null; 
-		try {
-			cashReceiptSvc.getBillingForPayment( params );  
-		} catch(Throwable t) {
-			if ( t.message.toString().indexOf('There are no unpaid balances for this application') > 0 ) {
-				//do nothing 
-			}
-			else {
-				throw e;
-			}
-		}
-
+		def billing = cashReceiptSvc.getBillingForPayment( params );  
 		if ( billing?.totals ) { 
 			def qtrs = [
 				[qtr: 1, amount: billing.totals.q1],

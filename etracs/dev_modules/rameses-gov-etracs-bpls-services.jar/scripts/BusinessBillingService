@@ -258,7 +258,14 @@ public class BusinessBillingService  {
 	public def getBilling( o ) {
 		def e =  appEm.read( [objid: o.applicationid ] );
 		def items = receivableSvc.getReceivables([ applicationid: o.applicationid ]);
-        if ( !items ) throw new Exception("There are no unpaid balances for this application");
+        if ( !items ) { 
+        	if ( o.silent.toString() == 'true' ) {
+        		return [status:'FULLY_PAID']; 
+        	} 
+        	else { 
+        		throw new Exception("There are no unpaid balances for this application"); 	
+        	}
+        } 
 
         if ( !o.billdate ) o.billdate = dateSvc.getBasicServerDate();
         
