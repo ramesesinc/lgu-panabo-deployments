@@ -97,11 +97,9 @@ select
 	bp.*, ba.appno, ba.apptype, ba.ownername, ba.owneraddress, ba.tradename, 
 	ba.businessaddress, b.bin, b.pin, b.address_objid, b.owner_address_objid, 
 	(SELECT photo FROM entityindividual WHERE objid=b.owner_objid) AS photo, 
-	(select citizenship from entityindividual where objid=b.owner_objid) AS citizenship, 
-	(select civilstatus from entityindividual where objid=b.owner_objid) AS civilstatus, 
-	ba.parentapplicationid, b.orgtype   
+	ba.parentapplicationid  
 from business_application ba 
-	inner join business_permit bp on bp.objid=ba.permit_objid 
+	inner join business_permit bp on ba.objid=bp.applicationid  
 	inner join business b on bp.businessid=b.objid 
 where ba.objid=$P{applicationid} 
 	and bp.activeyear=ba.appyear 
@@ -113,18 +111,15 @@ select
 	bp.*, ba.appno, ba.apptype, ba.ownername, ba.owneraddress, ba.tradename, 
 	ba.businessaddress, b.bin, b.pin, b.address_objid, b.owner_address_objid, ba.parentapplicationid, 
 	(select apptype from business_application where objid=ba.parentapplicationid) as parentapptype,  
-	(select photo from entityindividual where objid=b.owner_objid) AS photo, 
-	(select citizenship from entityindividual where objid=b.owner_objid) AS citizenship, 
-	(select civilstatus from entityindividual where objid=b.owner_objid) AS civilstatus, 
-	b.orgtype  
+	(select photo from entityindividual where objid=b.owner_objid) AS photo 
 from ( 
 	select objid as appid from business_application 
-	where objid=$P{applicationid} and state='COMPLETED'  
+	where objid=$P{applicationid} and state in ('RELEASE','COMPLETED')  
 	union 
 	select objid as appid from business_application 
-	where parentapplicationid=$P{applicationid} and state='COMPLETED'  
+	where parentapplicationid=$P{applicationid} and state in ('RELEASE','COMPLETED')  
 )xx 
-	inner join business_application ba on ba.objid=xx.appid 
+	inner join business_application ba on xx.appid=ba.objid 
 	inner join business_permit bp on ba.objid=bp.applicationid 
 	inner join business b on bp.businessid=b.objid 
 where bp.activeyear=ba.appyear and bp.state='ACTIVE' 
@@ -140,23 +135,15 @@ select
 	bal.objid, bal.applicationid, bal.businessid, ba.txndate,  
 	bal.lobid, bal.name, bal.assessmenttype 
 from ( 
-	select 
-		bal.businessid, bal.activeyear, bal.lobid, max(ba.txndate) as txndate 
-	from business_application o 
-		inner join business_application_lob bal on o.business_objid=bal.businessid 
-		inner join business_application ba on bal.applicationid=ba.objid 
-	where o.objid=$P{applicationid} 
-		and bal.activeyear=o.appyear  
-		and ba.state in ('RELEASE','COMPLETED') 
-	group by bal.businessid, bal.activeyear, bal.lobid 
+	select business_objid, appyear 
+	from business_application 
+	where objid=$P{applicationid} 
 )xx 
-	inner join business_application_lob bal on xx.businessid=bal.businessid 
-	inner join business_application ba on bal.applicationid=ba.objid 
-where bal.activeyear=xx.activeyear 
-	and bal.lobid=xx.lobid 
-	and ba.txndate=xx.txndate 
-	and bal.assessmenttype in ('NEW','RENEW') 
-order by ba.txndate, bal.name 
+	inner join business_application ba on (xx.business_objid=ba.business_objid and ba.appyear=xx.appyear) 
+	inner join business_application_lob bal on ba.objid=bal.applicationid 
+where ba.state in ('RELEASE','COMPLETED') 
+	and ba.objid in (select applicationid from business_permit where applicationid=ba.objid and state='ACTIVE') 
+order by ba.txndate 
 
 
 [updatePlateno]
@@ -172,6 +159,7 @@ where businessid=$P{businessid} and activeyear=$P{activeyear}
 select * from business_permit 
 where businessid=$P{businessid} and applicationid=$P{applicationid} 
    and state = 'ACTIVE' 
+
 
 [updateRemarks]
 update business_permit set remarks=$P{remarks} where objid=$P{objid} 
@@ -207,7 +195,7 @@ from (
 			inner join lob on lob.objid = alob.lobid  
 		where bperm.objid = $P{permitid} 
 			and bac.txndate < ba.txndate 
-			and bac.state in ('COMPLETED','RELEASE')
+			and bac.state = 'COMPLETED' 
 
 		union all 
 
@@ -219,8 +207,7 @@ from (
 			inner join business_application_lob alob on alob.applicationid = ba.objid 
 			inner join lob on lob.objid = alob.lobid  
 		where bperm.objid = $P{permitid} 
-			and ba.state in ('COMPLETED','RELEASE')
-
+			and ba.state = 'COMPLETED' 
 	)t1 
 	group by t1.lobid, t1.name 
 	having sum(t1.iflag) > 0 
