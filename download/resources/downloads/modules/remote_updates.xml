@@ -40,7 +40,7 @@ entity.app.context=etracs25
 	<module file="core/osiris2-draw.jar" version="2.50"/>
 	<module file="core/osiris2-framework.jar" version="2.50"/>
 	<module file="core/osiris2-report.jar" version="2.50"/>
-	<module file="core/rameses-client-ui.jar" version="2.50"/>
+	<module file="core/rameses-client-ui.jar" version="2.51"/>
 	<module file="core/rameses-client-ui-bio.jar" version="2.50"/>
 	<module file="core/rameses-client-ui-jfx.jar" version="2.50"/>
 	<module file="core/rameses-client-notification-socketio.jar" version="2.50"/>
