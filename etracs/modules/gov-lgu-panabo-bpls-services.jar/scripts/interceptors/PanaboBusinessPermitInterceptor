@@ -68,7 +68,18 @@ class PanaboBusinessPermitInterceptor {
 			result.lastpaidqtr = ( maxqtr ? maxqtr.qtr : null ); 
 		} 
 		
-		def billing = cashReceiptSvc.getBillingForPayment( params );  
+		def billing = null; 
+		try {
+			cashReceiptSvc.getBillingForPayment( params );  
+		} catch(Throwable t) {
+			if ( t.message.toString().indexOf('There are no unpaid balances for this application') > 0 ) {
+				//do nothing 
+			}
+			else {
+				throw e;
+			}
+		}
+
 		if ( billing?.totals ) { 
 			def qtrs = [
 				[qtr: 1, amount: billing.totals.q1],
