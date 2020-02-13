@@ -27,8 +27,8 @@ entity.app.context=etracs25
 	<module file="custom/gov-lgu-panabo-customreport_CancelFaas.jar" version="1.2"/> 
 	<module file="custom/gov-lgu-panabo-customreport_BPLSBilling.jar" version="1.3"/>
 	<module file="custom/gov-lgu-panabo-customreport_marketbilling.jar" version="1.1"/>
-	<module file="custom/gov-lgu-ddn-panabo.jar" version="1.7"/>
-	<module file="custom/gov-lgu-panabo-customreport.jar" version="1.1"/>
+	<module file="custom/gov-lgu-ddn-panabo.jar" version="1.08"/>
+	<module file="custom/gov-lgu-panabo-customreport.jar" version="1.01"/>
 	<module file="custom/gov-lgu-ddn-panabo-main.jar" version="1.00"/>
 
 	<!-- 3rd party libs --> 
