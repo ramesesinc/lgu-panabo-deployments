@@ -45,12 +45,5 @@ services:
 
       - ./dev_modules/rameses-gov-etracs-bpls-services.jar:/services/modules/etracs/rameses-gov-etracs-bpls-services.jar
 
-      - ./dev_modules/rameses-gov-etracs-rptis-city-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-city-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-coordinator-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-coordinator-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-landtax-online-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-landtax-online-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-landtax-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-landtax-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-landtax-report-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-landtax-report-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-online-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-online-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-report-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-report-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-sms-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-sms-services.jar
+      - ./dev_modules/rptis:/rptis
+      - ./dev_modules/rptis/etracs_rptis.conf:/apps/etracs25/modules.conf.d/etracs_rptis.conf
