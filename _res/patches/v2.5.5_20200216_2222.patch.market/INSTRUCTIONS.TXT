@@ -1,0 +1,52 @@
+=========================================
+2020-02-16: PATCH ETRACS 
+=========================================
+
+-----------------------------------------
+ ABOUT THE PATCH: 
+-----------------------------------------
+This patch instruction will only activate the previous Market module 
+that was running in ETRACS v254 to ETRACS v255. For now we will not 
+be using the latest release version of the Market module because 
+it needs to migrated from the old structure to the new one. 
+
+
+-----------------------------------------
+ SERVER UPDATE: 
+-----------------------------------------
+01. Open Navicat 
+
+    01.01  Connect to etracs main database  
+
+    01.02  Execute the following sql script files: 
+
+           * {PATCH_DIR}/mysql/01-market_v254_ruleset.sql
+           * {PATCH_DIR}/mysql/01-market_v254_rules.sql
+           * {PATCH_DIR}/mysql/01-market_v254_treasury.sql
+
+
+02. Go to VM1 desktop 
+
+    02.01  Right-click in the Desktop and select "Git Bash Here"
+    02.02  Login remotely to ubuntu server using SSH 
+
+           $  ssh cadoit@192.168.5.195
+
+
+    02.03  Go to docker/bin folder 
+
+           $  cd ~/docker/bin 
+
+
+    02.04  Pull repo updates 
+
+           $  sh pull-updates.sh
+
+    
+    02.05  Restart ETRACS docker container 
+
+           $  sh restart-etracs.sh
+
+
+
+03. Try and check the Market module. 
