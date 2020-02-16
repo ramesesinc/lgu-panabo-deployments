@@ -104,6 +104,6 @@ entity.app.context=etracs25
 	<module file="ctc/rameses-gov-etracs-ctc.jar" version="2.50"/>
 
 	<!-- market --> 
-	<module file="market/rameses-gov-etracs-market.jar" version="2.50"/> 
+	<module file="market/rameses-gov-etracs-market.jar" version="2.51"/> 
 </modules>
 </app>
