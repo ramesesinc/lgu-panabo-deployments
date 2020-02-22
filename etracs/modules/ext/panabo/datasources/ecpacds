@@ -1,0 +1,5 @@
+dialect=mysql
+driverClass=com.mysql.jdbc.Driver
+url=jdbc:mysql://${ecpacdb_host}/${ecpacdb_name}
+user=${ecpacdb_user}
+pwd=${ecpacdb_pass}
