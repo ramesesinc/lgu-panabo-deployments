@@ -10,6 +10,7 @@ class MarketRentalBillItem extends MonthBillItem {
 	double rate;
 	String ratetype;
 	String txntype = 'MARKETRENTAL';
+	String ledgertype;
 
 	public def toMap() {
 		def m = super.toMap();

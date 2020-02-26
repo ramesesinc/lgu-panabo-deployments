@@ -1,6 +1,6 @@
 <app>
 <env>
-app.title=ETRACS 2.5 build 05 20200211_1638 (CITY OF PANABO)
+app.title=ETRACS 2.5 build 05 20200226_2230 (CITY OF PANABO)
 app.host=192.168.5.195:8070
 app.cluster=osiris3
 app.context=etracs25
@@ -104,6 +104,6 @@ entity.app.context=etracs25
 	<module file="ctc/rameses-gov-etracs-ctc.jar" version="2.50"/>
 
 	<!-- market --> 
-	<module file="market/rameses-gov-etracs-market.jar" version="2.51"/> 
+	<module file="market/rameses-gov-etracs-market.jar" version="2.52"/> 
 </modules>
 </app>

@@ -63,6 +63,8 @@ class MarketCashReceiptInterceptor{
 	}
 
 	void postRentalBalance( def itm, def pmt, def o ) {
+		if ( !o.ledgerid ) o.ledgerid = o.refid; 
+
 		def ledgerid = o.ledgerid;
 		//rentalLedger.debug = true;
 		rentalLedger.find( [objid: ledgerid ] ).update( [amtpaid:'{amtpaid + :amt}'], [amt: o.amount ]  );

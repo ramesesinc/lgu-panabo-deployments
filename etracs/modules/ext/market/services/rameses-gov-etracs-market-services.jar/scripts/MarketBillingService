@@ -108,7 +108,9 @@ class MarketBillingService {
 				 amount:it.amount-it.amtpaid, remarks: it.remarks );
 			}
 			catch(e) {
-				throw new Exception("Error loading market rental billitem");	
+				e.printStackTrace(); 
+				throw e; 
+				//throw new Exception("Error loading market rental billitem");	
 			}
 		};
 	}
