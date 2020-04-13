@@ -1,0 +1,49 @@
+=========================================
+2020-04-13: PATCH ETRACS 
+=========================================
+
+-----------------------------------------
+ ABOUT THE PATCH: 
+-----------------------------------------
+Update SQL Views and Structures
+
+
+-----------------------------------------
+ SERVER UPDATE: 
+-----------------------------------------
+01. Open Navicat 
+
+    01.01  Connect to etracs main database  
+
+    01.02  Execute the following sql script files: 
+
+           * {PATCH_DIR}/mysql/01_patch_etracs_schema.sql
+           * {PATCH_DIR}/mysql/02_patch_etracs_views.sql
+
+
+02. Go to VM1 desktop 
+
+    02.01  Right-click in the Desktop and select "Git Bash Here"
+    02.02  Login remotely to ubuntu server using SSH 
+
+           $  ssh cadoit@192.168.5.195
+
+
+    02.03  Go to docker/bin folder 
+
+           $  cd ~/docker/bin 
+
+
+    02.04  Pull repo updates 
+
+           $  sh pull-updates.sh
+
+    
+    02.05  Restart ETRACS docker container 
+
+           $  docker pull ramesesinc/etracs25-server-city:255.02.007
+
+           $  sh restart-etracs.sh
+
+
+03. Done
