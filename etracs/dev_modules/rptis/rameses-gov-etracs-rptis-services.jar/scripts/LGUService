@@ -50,7 +50,7 @@ class LGUService
 
     @ProxyMethod
     public def getBarangaysByParentId( parentid ) {
-        return brgySvc.getListByParentid(parentid)
+        return brgySvc.getListByRootId(parentid)
     }
 
 
@@ -62,7 +62,7 @@ class LGUService
     @ProxyMethod
     public def lookupBarangaysByParentid(parentid) {
         if (!parentid) parentid = '%'
-        return brgySvc.getListByParentid(parentid)
+        return brgySvc.getListByRootId(parentid)
     }    
 
     @ProxyMethod

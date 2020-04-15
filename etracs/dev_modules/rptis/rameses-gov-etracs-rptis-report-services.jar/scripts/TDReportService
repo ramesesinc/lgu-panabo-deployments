@@ -160,6 +160,7 @@ class TDReportService
 		faas.prevareasqm = getPreviousInfo(list, 'prevareasqm', '#,##0.00')
 		faas.prevareaha = getPreviousInfo(list, 'prevareaha', '#,##0.000000')
 		faas.preveffectivity = getPreviousInfo(list, 'preveffectivity')
+		faas.prevtaxability = getPreviousInfo(list, 'prevtaxability')
 	}
 
 	void buildAdjustmentFactor(td){
