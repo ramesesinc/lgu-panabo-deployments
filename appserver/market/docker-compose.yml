@@ -4,9 +4,9 @@ services:
 #
 # market server Conf
 #
-  local-market-server:
+  market-server:
     image: ramesesinc/local-market-server:v001
-    container_name: local-market-server
+    container_name: market-server
     restart: always
     logging:
       driver: "json-file"
