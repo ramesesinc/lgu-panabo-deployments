@@ -1,5 +1,5 @@
 provider=script
-app.host=${app_server_ip}:8571
+app.host=${app_server_ip}:8070
 app.cluster=osiris3
-app.context=gdx
+app.context=etracs25
 readTimeout=60000
