@@ -1,6 +1,8 @@
 #!/bin/sh
 RUN_DIR=`pwd`
-cd ../etracs
-docker-compose down
-docker system prune -f
+cd ..
+BASE_DIR=`pwd`
+
+cd $BASE_DIR/appserver/etracs && docker-compose down
+
 cd $RUN_DIR
