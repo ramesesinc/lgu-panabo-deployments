@@ -52,7 +52,7 @@ class PanaboBusinessPermitInterceptor {
 		def appid = result.parentapplicationid; 
 		if ( !appid ) appid = result.applicationid; 
 
-		def bill = billingSvc.getBilling([ applicationid: result.applicationid, silent: true ]); 
+		def bill = billingSvc.getBilling([ applicationid: result.applicationid, _silent: true ]); 
 		if ( bill?.totals ) { 
 			def qtrs = []; 
 			qtrs << [ qtr:1, amount: (bill.totals.q1 ? bill.totals.q1 : 0.0) ];
