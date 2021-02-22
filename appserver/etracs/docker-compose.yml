@@ -29,3 +29,5 @@ services:
 
       - ../../_custom/output:/apps/server/output
       - ../../_custom/fileserver:/fileserver
+
+      - ./bpls:/services/modules/bpls
