@@ -263,10 +263,6 @@ public class BusinessBillingService  {
 
 	@ProxyMethod 
 	public def getBilling( o ) {
-		println '\n** get billing '
-		o.each{
-			println '> '+ it;
-		}
 		def e =  appEm.read( [objid: o.applicationid ] );
 		def items = receivableSvc.getReceivables([ applicationid: o.applicationid ]);
         if ( !items ) {
