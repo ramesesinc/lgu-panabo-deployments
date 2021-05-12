@@ -23,23 +23,23 @@ public class PanaboRPTLedgerInterceptor
     
      @After(pattern="RPTLedgerService.postNewLedger") 
     public void postEcpacData( evt ) {
-        def ledger = evt.result 
-        def faas = db_faas.select('objid,datacapture').find([objid:ledger.faasid]).first()
-        if (faas && util.isTrue(faas.datacapture)){
-            def prop = em.findProperty([idmaster:ledger.faasid])
-            if (!prop) return;
+        // def ledger = evt.result 
+        // def faas = db_faas.select('objid,datacapture').find([objid:ledger.faasid]).first()
+        // if (faas && util.isTrue(faas.datacapture)){
+        //     def prop = em.findProperty([idmaster:ledger.faasid])
+        //     if (!prop) return;
 
-            try{
-                prop.rptledgerid = ledger.objid 
-                prop.tdno = ledger.tdno
-                postFaasHistories(ledger, prop)
-                postCredits(ledger, prop)
-            }
-            catch(e){
-                println 'postEcpacCredits [ERROR] ========================'
-                e.printStackTrace();
-            }
-        }
+        //     try{
+        //         prop.rptledgerid = ledger.objid 
+        //         prop.tdno = ledger.tdno
+        //         postFaasHistories(ledger, prop)
+        //         postCredits(ledger, prop)
+        //     }
+        //     catch(e){
+        //         println 'postEcpacCredits [ERROR] ========================'
+        //         e.printStackTrace();
+        //     }
+        // }
     }
 
     void postFaasHistories(ledger, prop){
